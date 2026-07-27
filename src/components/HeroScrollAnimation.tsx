@@ -5,13 +5,14 @@ const TOTAL_FRAMES = 300;
 const getFrameUrl = (index: number) => {
   const frameNum = String(index + 1).padStart(4, '0');
   const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-  return `${base}/extracted_frames_30fps_jpg/frame_${frameNum}.jpg`;
+  return `${base}/extracted_frames_webp/frame_${frameNum}.webp`;
 };
 
 export const HeroScrollAnimation: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imagesRef = useRef<HTMLImageElement[]>([]);
+  const imagesRef = useRef<(HTMLImageElement | null)[]>(new Array(TOTAL_FRAMES).fill(null));
+  const loadingStatusRef = useRef<boolean[]>(new Array(TOTAL_FRAMES).fill(false));
   const targetFrameRef = useRef<number>(0);
   const currentFrameRef = useRef<number>(0);
   const animationFrameIdRef = useRef<number | null>(null);
@@ -19,30 +20,75 @@ export const HeroScrollAnimation: React.FC = () => {
   const [isReady, setIsReady] = useState<boolean>(false);
   const [titleOpacity, setTitleOpacity] = useState<number>(1);
 
-  // Preload frames
+  // Helper to load a single frame on demand
+  const loadFrame = (index: number): Promise<HTMLImageElement> => {
+    if (imagesRef.current[index] && imagesRef.current[index]?.complete) {
+      return Promise.resolve(imagesRef.current[index]!);
+    }
+
+    if (loadingStatusRef.current[index] && imagesRef.current[index]) {
+      return new Promise((resolve) => {
+        const img = imagesRef.current[index]!;
+        if (img.complete) resolve(img);
+        else img.onload = () => resolve(img);
+      });
+    }
+
+    loadingStatusRef.current[index] = true;
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.src = getFrameUrl(index);
+      img.onload = () => {
+        imagesRef.current[index] = img;
+        setLoadedCount((prev) => {
+          const next = prev + 1;
+          if (next >= 10) setIsReady(true);
+          return next;
+        });
+        if (Math.round(currentFrameRef.current) === index) {
+          renderFrame(index);
+        }
+        resolve(img);
+      };
+      img.onerror = () => {
+        loadingStatusRef.current[index] = false;
+        resolve(img);
+      };
+      imagesRef.current[index] = img;
+    });
+  };
+
+  // Preload initial batch instantly, then queue remaining frames
   useEffect(() => {
     let isMounted = true;
-    const images: HTMLImageElement[] = [];
-    let count = 0;
 
-    for (let i = 0; i < TOTAL_FRAMES; i++) {
-      const img = new Image();
-      img.src = getFrameUrl(i);
-      img.onload = () => {
-        if (!isMounted) return;
-        count++;
-        setLoadedCount(count);
-        if (i === 0 || count === 1) {
-          // Immediately draw initial frame as soon as frame 0 or first image loads
-          renderFrame(0);
+    async function initLoading() {
+      // 1. Immediately load first 15 frames for 0ms initial render
+      const initialPromises = [];
+      for (let i = 0; i < Math.min(15, TOTAL_FRAMES); i++) {
+        initialPromises.push(loadFrame(i));
+      }
+
+      await Promise.all(initialPromises);
+      if (!isMounted) return;
+      setIsReady(true);
+      renderFrame(0);
+
+      // 2. Stream load remaining frames in small non-blocking chunks
+      const chunkSize = 10;
+      for (let i = 15; i < TOTAL_FRAMES; i += chunkSize) {
+        if (!isMounted) break;
+        const chunkPromises = [];
+        for (let j = i; j < Math.min(i + chunkSize, TOTAL_FRAMES); j++) {
+          chunkPromises.push(loadFrame(j));
         }
-        if (count >= 15) {
-          setIsReady(true);
-        }
-      };
-      images.push(img);
+        await Promise.all(chunkPromises);
+        // Micro pause to keep UI thread 100% responsive
+        await new Promise((r) => setTimeout(r, 15));
+      }
     }
-    imagesRef.current = images;
+
+    initLoading();
 
     return () => {
       isMounted = false;
@@ -57,7 +103,20 @@ export const HeroScrollAnimation: React.FC = () => {
     if (!ctx) return;
 
     const frameIdx = Math.max(0, Math.min(TOTAL_FRAMES - 1, Math.round(index)));
-    const img = imagesRef.current[frameIdx] || imagesRef.current[0];
+    
+    // Find nearest loaded frame if target is still downloading
+    let img = imagesRef.current[frameIdx];
+    if (!img || !img.complete) {
+      // Priority load target frame
+      loadFrame(frameIdx);
+      // Fallback to nearest loaded frame for instant display
+      for (let offset = 1; offset < 20; offset++) {
+        const prev = imagesRef.current[frameIdx - offset];
+        if (prev && prev.complete) { img = prev; break; }
+        const next = imagesRef.current[frameIdx + offset];
+        if (next && next.complete) { img = next; break; }
+      }
+    }
 
     if (!img || !img.complete || img.naturalWidth === 0) return;
 
@@ -138,8 +197,17 @@ export const HeroScrollAnimation: React.FC = () => {
 
       const currentScroll = -rect.top;
       const scrollFraction = Math.max(0, Math.min(1, currentScroll / totalScrollableHeight));
+      
+      const nextTarget = scrollFraction * (TOTAL_FRAMES - 1);
+      targetFrameRef.current = nextTarget;
 
-      targetFrameRef.current = scrollFraction * (TOTAL_FRAMES - 1);
+      // Eagerly prefetch target frame and next 3 frames on scroll
+      const targetIdx = Math.round(nextTarget);
+      for (let f = targetIdx; f <= Math.min(targetIdx + 3, TOTAL_FRAMES - 1); f++) {
+        if (!loadingStatusRef.current[f]) {
+          loadFrame(f);
+        }
+      }
 
       // Title fades out as user scrolls through the first 30% of the section (scrollFraction 0 -> 0.3)
       const opacity = Math.max(0, 1 - (scrollFraction / 0.3));
@@ -178,12 +246,13 @@ export const HeroScrollAnimation: React.FC = () => {
         {/* Minimal loading indicator until initial batch is ready */}
         {loadedCount < TOTAL_FRAMES && (
           <div
-            className={`absolute bottom-6 right-6 z-20 pointer-events-none transition-opacity duration-500 ${isReady ? 'opacity-0' : 'opacity-100'
-              }`}
+            className={`absolute bottom-6 right-6 z-20 pointer-events-none transition-opacity duration-500 ${
+              isReady ? 'opacity-0' : 'opacity-100'
+            }`}
           >
             <div className="flex items-center gap-2 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 text-[11px] text-slate-300 font-mono">
               <div className="w-2 h-2 rounded-full bg-blue-500 animate-ping" />
-              <span>Loading frames ({Math.round((loadedCount / TOTAL_FRAMES) * 100)}%)</span>
+              <span>Optimized frames ({Math.round((loadedCount / TOTAL_FRAMES) * 100)}%)</span>
             </div>
           </div>
         )}
