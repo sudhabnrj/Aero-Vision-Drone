@@ -4,7 +4,8 @@ const TOTAL_FRAMES = 300;
 
 const getFrameUrl = (index: number) => {
   const frameNum = String(index + 1).padStart(4, '0');
-  return `/extracted_frames_30fps_jpg/frame_${frameNum}.jpg`;
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+  return `${base}/extracted_frames_30fps_jpg/frame_${frameNum}.jpg`;
 };
 
 export const HeroScrollAnimation: React.FC = () => {

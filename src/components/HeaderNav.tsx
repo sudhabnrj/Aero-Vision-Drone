@@ -36,7 +36,7 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({ onOpenBuyModal }) => {
         <div className="flex items-center space-x-6">
           <a href="#" className="flex items-center group">
             <img
-              src="/logo.png"
+              src={`${import.meta.env.BASE_URL}logo.png`}
               alt="AeroVision Logo"
               className={`w-[200px] object-contain transition-all duration-300 drop-shadow-md group-hover:opacity-90 ${isScrolled ? '' : ''
                 }`}
