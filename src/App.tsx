@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { HeaderNav } from './components/HeaderNav';
 import { HeroScrollAnimation } from './components/HeroScrollAnimation';
+import { LoadingScreen } from './components/LoadingScreen';
 import { ProductGrid } from './components/ProductGrid';
 import { FlyingDroneExperience } from './components/FlyingDroneExperience';
 import { ShotOnSection } from './components/ShotOnSection';
@@ -18,6 +19,7 @@ export default function App() {
   const [buyModalOpen, setBuyModalOpen] = useState(false);
   const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<ProductCard | null>(null);
+  const [loadProgress, setLoadProgress] = useState<number>(0);
 
   const handleOpenBuy = (product?: ProductCard) => {
     setSelectedProduct(product || null);
@@ -26,12 +28,15 @@ export default function App() {
 
   return (
     <div className="min-h-screen text-slate-900 font-sans antialiased selection:bg-blue-500 selection:text-white bg-slate-50/50">
+      {/* Full Page Drone Flying Loading Screen */}
+      <LoadingScreen progress={loadProgress} />
+
       {/* Header Navigation */}
       <HeaderNav onOpenBuyModal={() => handleOpenBuy()} />
 
       <main className="space-y-4">
         {/* Scroll-Based Hero Frame Animation */}
-        <HeroScrollAnimation />
+        <HeroScrollAnimation onProgress={(pct) => setLoadProgress((prev) => Math.max(prev, pct))} />
 
         {/* Quick Access Services & Care Refresh */}
         <QuickServicesSection />

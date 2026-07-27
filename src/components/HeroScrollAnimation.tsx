@@ -8,7 +8,11 @@ const getFrameUrl = (index: number) => {
   return `${base}/extracted_frames_webp/frame_${frameNum}.webp`;
 };
 
-export const HeroScrollAnimation: React.FC = () => {
+interface HeroScrollAnimationProps {
+  onProgress?: (percent: number) => void;
+}
+
+export const HeroScrollAnimation: React.FC<HeroScrollAnimationProps> = ({ onProgress }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imagesRef = useRef<(HTMLImageElement | null)[]>(new Array(TOTAL_FRAMES).fill(null));
@@ -52,11 +56,20 @@ export const HeroScrollAnimation: React.FC = () => {
       };
       img.onerror = () => {
         loadingStatusRef.current[index] = false;
+        setLoadedCount((prev) => prev + 1);
         resolve(img);
       };
       imagesRef.current[index] = img;
     });
   };
+
+  // Dedicated effect to notify parent of progress without React render warnings
+  useEffect(() => {
+    if (onProgress) {
+      const pct = Math.min(100, Math.round((loadedCount / TOTAL_FRAMES) * 100));
+      onProgress(pct);
+    }
+  }, [loadedCount, onProgress]);
 
   // Preload initial batch instantly, then queue remaining frames
   useEffect(() => {
@@ -83,8 +96,11 @@ export const HeroScrollAnimation: React.FC = () => {
           chunkPromises.push(loadFrame(j));
         }
         await Promise.all(chunkPromises);
-        // Micro pause to keep UI thread 100% responsive
-        await new Promise((r) => setTimeout(r, 15));
+        await new Promise((r) => setTimeout(r, 10));
+      }
+
+      if (isMounted && onProgress) {
+        onProgress(100);
       }
     }
 
