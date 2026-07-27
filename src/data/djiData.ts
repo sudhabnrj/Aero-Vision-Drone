@@ -57,7 +57,7 @@ export const PRODUCT_CARDS: ProductCard[] = [
       { text: 'Learn More', url: '#agras-t100-learn' },
       { text: 'Buy Now', url: '#agras-t100-buy', primary: true }
     ],
-    image: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=800&auto=format&fit=crop',
+    image: 'assets/p1.png',
     imageAlt: 'Aero Vision Agras T100 Agricultural Spraying Drone'
   },
   {

@@ -8,6 +8,7 @@ import { ShotOnSection } from './components/ShotOnSection';
 import { InnovationSection } from './components/InnovationSection';
 import { FieldsSection } from './components/FieldsSection';
 import { QuickServicesSection } from './components/QuickServicesSection';
+import { FlightModesScrollAnimation } from './components/FlightModesScrollAnimation';
 import { DroneSimulatorSection } from './components/DroneSimulatorSection';
 import { DroneComparisonSection } from './components/DroneComparisonSection';
 import { SkyPixelCommunitySection } from './components/SkyPixelCommunitySection';
@@ -46,6 +47,9 @@ export default function App() {
 
         {/* Animated Flying Drone Feature Discovery Section */}
         <FlyingDroneExperience />
+
+        {/* New Pure Scroll Animation Section using 240 WebP Drone Frames */}
+        <FlightModesScrollAnimation />
 
         {/* NEW UNIQUE SECTION 1: Interactive Flight Telemetry & HUD Simulator */}
         <DroneSimulatorSection />
