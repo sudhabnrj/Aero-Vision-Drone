@@ -1,0 +1,6 @@
+{
+  "name": "DJI Showcase",
+  "description": "Comprehensive clone of the DJI product showcase webpage featuring agricultural drones, handheld gimbals, camera drones, audio gear, and field solutions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
