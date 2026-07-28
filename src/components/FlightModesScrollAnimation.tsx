@@ -17,6 +17,7 @@ export const FlightModesScrollAnimation: React.FC = () => {
   const currentFrameRef = useRef<number>(0);
   const animationFrameIdRef = useRef<number | null>(null);
   const [loadedCount, setLoadedCount] = useState<number>(0);
+  const [titleOpacity, setTitleOpacity] = useState<number>(1);
 
   // Helper to load a single frame on demand
   const loadFrame = (index: number): Promise<HTMLImageElement> => {
@@ -196,6 +197,10 @@ export const FlightModesScrollAnimation: React.FC = () => {
           loadFrame(f);
         }
       }
+
+      // Fade out slowly as user scrolls 30% of the section (0 -> 0.3)
+      const opacity = Math.max(0, 1 - (scrollFraction / 0.3));
+      setTitleOpacity(opacity);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -210,12 +215,25 @@ export const FlightModesScrollAnimation: React.FC = () => {
 
   return (
     <section ref={containerRef} className="relative w-full h-[400vh] bg-black mb-0">
-      {/* Full-screen sticky canvas container without text or overlay components */}
+      {/* Full-screen sticky canvas container */}
       <div className="sticky top-0 left-0 w-full h-screen overflow-hidden bg-black flex items-center justify-center">
         <canvas
           ref={canvasRef}
           className="w-full h-full object-cover block"
         />
+
+        {/* Overlay text (centered) */}
+        <div
+          className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 select-none transition-opacity duration-75 ease-out px-6 text-center space-y-4"
+          style={{ opacity: titleOpacity }}
+        >
+          <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-white drop-shadow-[0_15px_35px_rgba(0,0,0,0.9)] font-sans">
+            Fly Smarter. Shoot Better.
+          </h2>
+          <p className="text-base sm:text-xl md:text-2xl font-medium text-slate-200/90 max-w-3xl drop-shadow-[0_5px_15px_rgba(0,0,0,0.8)] leading-relaxed">
+            Professional-grade drones designed for stunning aerial photography and effortless control.
+          </p>
+        </div>
       </div>
     </section>
   );

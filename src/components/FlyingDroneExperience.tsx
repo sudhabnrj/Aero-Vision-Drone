@@ -327,7 +327,7 @@ export const FlyingDroneExperience: React.FC = () => {
             </div>
 
             {/* Feature Quick CTA */}
-            <div className="flex flex-col items-stretch md:items-end justify-center gap-3 pt-4 md:pt-0 md:border-l border-white/10 md:pl-6">
+            <div className="flex flex-col items-stretch md:items-center justify-center gap-3 pt-4 md:pt-0 md:border-l border-white/10 md:pl-6">
               <a
                 href="#drones-catalog"
                 className="w-full text-center px-6 py-3 rounded-full bg-[#0070d2] hover:bg-[#005fb3] text-white text-xs sm:text-sm font-bold shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95 inline-flex items-center justify-center space-x-2"
