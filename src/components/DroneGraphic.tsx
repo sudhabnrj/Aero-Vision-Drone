@@ -50,16 +50,26 @@ export const DroneGraphic: React.FC<DroneGraphicProps> = ({ src, alt, className 
     );
   }
 
+  const resolvedSrc = (() => {
+    if (!src) return '';
+    if (src.startsWith('http://') || src.startsWith('https://') || src.startsWith('data:') || src.startsWith('blob:')) {
+      return src;
+    }
+    const cleanSrc = src.startsWith('/') ? src.slice(1) : src;
+    const base = import.meta.env.BASE_URL || '/';
+    const finalBase = base.endsWith('/') ? base : `${base}/`;
+    return src.includes('/assets/') || src.startsWith('data:') ? src : `${finalBase}${cleanSrc}`;
+  })();
+
   return (
     <div className={`relative flex items-center justify-center ${className}`}>
       {/* Studio Pedestal Glow */}
       <div className="absolute bottom-1 w-32 h-5 bg-sky-500/20 rounded-full blur-md" />
       <img
-        src={src}
+        src={resolvedSrc}
         alt={alt}
         onError={() => setImageError(true)}
         className="relative z-10 max-h-full max-w-full object-contain filter drop-shadow-xl transition-all duration-500 group-hover:scale-105"
-        referrerPolicy="no-referrer"
       />
     </div>
   );

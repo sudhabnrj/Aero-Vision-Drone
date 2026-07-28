@@ -11,35 +11,34 @@ interface ProductGridProps {
 export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct }) => {
   const [filter, setFilter] = useState<string>('all');
 
-  // Ensure maximum 6 products display in a clean 3x2 grid layout (3 columns)
   const filteredCards = PRODUCT_CARDS.filter((card) => {
-    if (filter === 'camera') return card.category.toLowerCase().includes('camera') || card.category.toLowerCase().includes('fpv') || card.category.toLowerCase().includes('travel');
+    if (filter === 'camera') return card.category.toLowerCase().includes('camera') || card.category.toLowerCase().includes('fpv') || card.category.toLowerCase().includes('travel') || card.category.toLowerCase().includes('cinema') || card.category.toLowerCase().includes('gimbal');
     if (filter === 'agri') return card.category.toLowerCase().includes('agriculture');
-    if (filter === 'enterprise') return card.category.toLowerCase().includes('enterprise') || card.category.toLowerCase().includes('inspection');
+    if (filter === 'enterprise') return card.category.toLowerCase().includes('enterprise') || card.category.toLowerCase().includes('inspection') || card.category.toLowerCase().includes('survey') || card.category.toLowerCase().includes('station');
     return true;
-  }).slice(0, 6);
+  });
 
   return (
-    <section id="drones-catalog" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+    <section id="drones-catalog" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 mb-0">
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
         <div>
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-50 text-[#0070d2] text-xs font-bold uppercase tracking-wider mb-2">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Flagship Aerial Lineup</span>
+            <span>Flagship Lineup</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-            Explore Aero Vision Drone Technology
+            Explore Aero Vision Product Catalog
           </h2>
           <p className="text-sm sm:text-base text-slate-600 mt-1 max-w-xl">
-            Choose from 6 flagship drones engineered for aerial cinematography, precision agriculture, and commercial operations.
+            Choose from {PRODUCT_CARDS.length} flagship products engineered for aerial cinematography, precision agriculture, and commercial operations.
           </p>
         </div>
 
         {/* Category Filter Pills */}
         <div className="flex flex-wrap items-center gap-2 bg-slate-100 p-1.5 rounded-2xl border border-slate-200/80">
           {[
-            { id: 'all', label: 'All Drones (6)' },
+            { id: 'all', label: `All Products (${PRODUCT_CARDS.length})` },
             { id: 'camera', label: 'Camera & FPV' },
             { id: 'agri', label: 'Agriculture' },
             { id: 'enterprise', label: 'Enterprise' }
@@ -47,11 +46,10 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct }) => 
             <button
               key={tab.id}
               onClick={() => setFilter(tab.id)}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer ${
-                filter === tab.id
-                  ? 'bg-white text-slate-900 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
-              }`}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer ${filter === tab.id
+                ? 'bg-white text-slate-900 shadow-xs'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
+                }`}
             >
               {tab.label}
             </button>

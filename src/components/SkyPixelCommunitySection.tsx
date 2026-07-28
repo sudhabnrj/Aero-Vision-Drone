@@ -47,7 +47,7 @@ export const SkyPixelCommunitySection: React.FC = () => {
   ];
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 my-8">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-20 my-0 pt-0">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
         <div>
@@ -61,18 +61,6 @@ export const SkyPixelCommunitySection: React.FC = () => {
           <p className="text-sm sm:text-base text-slate-600 mt-2 max-w-xl">
             Explore award-winning master shots, EXIF camera settings, and 4K cinema projects created with Aero Vision gear.
           </p>
-        </div>
-
-        <div>
-          <a
-            href="https://www.skypixel.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center space-x-2 px-6 py-3 rounded-full bg-[#0070d2] hover:bg-[#005fb3] text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95"
-          >
-            <span>Explore SkyPixel Community</span>
-            <ExternalLink className="w-4 h-4" />
-          </a>
         </div>
       </div>
 

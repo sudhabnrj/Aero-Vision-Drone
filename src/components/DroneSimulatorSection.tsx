@@ -56,7 +56,7 @@ export const DroneSimulatorSection: React.FC = () => {
   const current = modeConfig[flightMode];
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 my-8">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 my-0">
       {/* Title */}
       <div className="text-center max-w-3xl mx-auto space-y-3 mb-10">
         <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-blue-100 text-[#0070d2] text-xs font-bold uppercase tracking-wider">
@@ -78,9 +78,8 @@ export const DroneSimulatorSection: React.FC = () => {
           <img
             src={current.bgImage}
             alt={current.title}
-            className={`w-full h-full object-cover transition-all duration-700 ${
-              isSimulating ? 'scale-105 filter brightness-90' : 'scale-100 filter brightness-75'
-            }`}
+            className={`w-full h-full object-cover transition-all duration-700 ${isSimulating ? 'scale-105 filter brightness-90' : 'scale-100 filter brightness-75'
+              }`}
             referrerPolicy="no-referrer"
           />
           {/* HUD Overlay Grids & Radar Circle */}
@@ -112,11 +111,10 @@ export const DroneSimulatorSection: React.FC = () => {
                 <button
                   key={mode}
                   onClick={() => setFlightMode(mode)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold uppercase transition-all duration-200 cursor-pointer ${
-                    flightMode === mode
-                      ? 'bg-[#0070d2] text-white shadow-md'
-                      : 'text-slate-300 hover:text-white hover:bg-white/10'
-                  }`}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold uppercase transition-all duration-200 cursor-pointer ${flightMode === mode
+                    ? 'bg-[#0070d2] text-white shadow-md'
+                    : 'text-slate-300 hover:text-white hover:bg-white/10'
+                    }`}
                 >
                   {mode}
                 </button>
@@ -187,11 +185,10 @@ export const DroneSimulatorSection: React.FC = () => {
           <div className="flex items-center space-x-3">
             <button
               onClick={() => setRecording(!recording)}
-              className={`px-5 py-2.5 rounded-full font-bold text-xs sm:text-sm transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95 inline-flex items-center space-x-2 cursor-pointer ${
-                recording
-                  ? 'bg-red-600 hover:bg-red-700 text-white shadow-lg'
-                  : 'bg-white/10 hover:bg-white text-white hover:text-slate-900 border border-white/30 backdrop-blur-md'
-              }`}
+              className={`px-5 py-2.5 rounded-full font-bold text-xs sm:text-sm transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95 inline-flex items-center space-x-2 cursor-pointer ${recording
+                ? 'bg-red-600 hover:bg-red-700 text-white shadow-lg'
+                : 'bg-white/10 hover:bg-white text-white hover:text-slate-900 border border-white/30 backdrop-blur-md'
+                }`}
             >
               <Video className="w-4 h-4" />
               <span>{recording ? 'Stop Recording' : 'Simulate 4K Recording'}</span>

@@ -1,4 +1,14 @@
 import { HeroSlide, ProductCard, InnovationItem, FieldItem, FooterColumn } from '../types';
+import p1 from '../../assets/p1.png';
+import p2 from '../../assets/p2.png';
+import p3 from '../../assets/p3.png';
+import p4 from '../../assets/p4.png';
+import p5 from '../../assets/p5.png';
+import p6 from '../../assets/p6.png';
+import p7 from '../../assets/p7.png';
+import p8 from '../../assets/p8.png';
+import p9 from '../../assets/p9.png';
+import p10 from '../../assets/p10.png';
 
 export const HERO_SLIDES: HeroSlide[] = [
   {
@@ -8,41 +18,24 @@ export const HERO_SLIDES: HeroSlide[] = [
     tagline: 'Big Drone, Big Jobs.',
     buttons: [
       { text: 'Aero Vision AGRAS T100 >', url: '#agras-t100' },
-      { text: 'Aero Vision AGRAS T70P >', url: '#agras-t70p' }
+      { text: 'Aero Vision MAVIC 3 PRO >', url: '#mavic-3-pro' }
     ],
-    image: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=2000&auto=format&fit=crop'
+    image: p1
   },
   {
-    id: 'agras-t70p',
-    category: 'Smart Agricultural Equipment',
-    title: 'Aero Vision AGRAS T70P',
-    tagline: 'Precision Agriculture Redefined.',
+    id: 'mavic-3-pro',
+    category: 'Flagship Cinematography',
+    title: 'Aero Vision MAVIC 3 PRO',
+    tagline: 'Triple-Camera System with Hasselblad CMOS.',
     buttons: [
-      { text: 'Aero Vision AGRAS T70P >', url: '#agras-t70p' },
-      { text: 'Aero Vision AGRAS T100 >', url: '#agras-t100' }
+      { text: 'Aero Vision MAVIC 3 PRO >', url: '#mavic-3-pro' },
+      { text: 'Aero Vision INSPIRE 3 >', url: '#inspire-3' }
     ],
-    image: 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?q=80&w=2000&auto=format&fit=crop'
+    image: p2
   }
 ];
 
 export const PRODUCT_CARDS: ProductCard[] = [
-  {
-    id: 'mavic-3-pro',
-    category: 'Flagship Triple-Camera Drone',
-    title: 'Aero Vision MAVIC 3 PRO',
-    subtitle: 'Triple-camera system with Hasselblad 4/3 CMOS main camera',
-    price: '$2,199',
-    originalPrice: '$2,499',
-    specs: ['4/3 CMOS Hasselblad', '43-Min Flight Time', '15km O4 Transmission'],
-    rating: 4.9,
-    isBestSeller: true,
-    links: [
-      { text: 'Learn More', url: '#mavic-3-learn' },
-      { text: 'Buy Now', url: '#mavic-3-buy', primary: true }
-    ],
-    image: 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?q=80&w=800&auto=format&fit=crop',
-    imageAlt: 'Aero Vision Mavic 3 Pro Camera Drone'
-  },
   {
     id: 'agras-t100',
     category: 'Smart Agriculture Drone',
@@ -57,8 +50,25 @@ export const PRODUCT_CARDS: ProductCard[] = [
       { text: 'Learn More', url: '#agras-t100-learn' },
       { text: 'Buy Now', url: '#agras-t100-buy', primary: true }
     ],
-    image: 'assets/p1.png',
+    image: p1,
     imageAlt: 'Aero Vision Agras T100 Agricultural Spraying Drone'
+  },
+  {
+    id: 'mavic-3-pro',
+    category: 'Flagship Triple-Camera Drone',
+    title: 'Aero Vision MAVIC 3 PRO',
+    subtitle: 'Triple-camera system with Hasselblad 4/3 CMOS main camera',
+    price: '$2,199',
+    originalPrice: '$2,499',
+    specs: ['4/3 CMOS Hasselblad', '43-Min Flight Time', '15km O4 Transmission'],
+    rating: 4.9,
+    isBestSeller: true,
+    links: [
+      { text: 'Learn More', url: '#mavic-3-learn' },
+      { text: 'Buy Now', url: '#mavic-3-buy', primary: true }
+    ],
+    image: p2,
+    imageAlt: 'Aero Vision Mavic 3 Pro Camera Drone'
   },
   {
     id: 'avata-2',
@@ -73,7 +83,7 @@ export const PRODUCT_CARDS: ProductCard[] = [
       { text: 'Learn More', url: '#avata-2-learn' },
       { text: 'Buy Now', url: '#avata-2-buy', primary: true }
     ],
-    image: 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?q=80&w=800&auto=format&fit=crop',
+    image: p3,
     imageAlt: 'Aero Vision Avata 2 FPV Drone'
   },
   {
@@ -89,7 +99,7 @@ export const PRODUCT_CARDS: ProductCard[] = [
       { text: 'Learn More', url: '#air-3s-learn' },
       { text: 'Buy Now', url: '#air-3s-buy', primary: true }
     ],
-    image: 'https://images.unsplash.com/photo-1506947411487-a56738267384?q=80&w=800&auto=format&fit=crop',
+    image: p4,
     imageAlt: 'Aero Vision Air 3S Camera Drone'
   },
   {
@@ -106,7 +116,7 @@ export const PRODUCT_CARDS: ProductCard[] = [
       { text: 'Learn More', url: '#mini-4-learn' },
       { text: 'Buy Now', url: '#mini-4-buy', primary: true }
     ],
-    image: 'https://images.unsplash.com/photo-1521405924368-64c5b84bec60?q=80&w=800&auto=format&fit=crop',
+    image: p5,
     imageAlt: 'Aero Vision Mini 4 Pro Drone'
   },
   {
@@ -121,8 +131,70 @@ export const PRODUCT_CARDS: ProductCard[] = [
       { text: 'Learn More', url: '#matrice-350-learn' },
       { text: 'Buy Now', url: '#matrice-350-buy', primary: true }
     ],
-    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop',
+    image: p6,
     imageAlt: 'Aero Vision Matrice 350 RTK Enterprise Drone'
+  },
+  {
+    id: 'inspire-3',
+    category: 'Cinema Master Drone',
+    title: 'Aero Vision INSPIRE 3',
+    subtitle: 'Full-frame 8K ProRes RAW video camera drone system for feature films',
+    price: '$9,699',
+    specs: ['8K/75fps ProRes RAW', 'Full-Frame Sensor', '360° Pan Dual Control'],
+    rating: 5.0,
+    links: [
+      { text: 'Learn More', url: '#inspire-3-learn' },
+      { text: 'Buy Now', url: '#inspire-3-buy', primary: true }
+    ],
+    image: p7,
+    imageAlt: 'Aero Vision Inspire 3 Cinema Drone'
+  },
+  {
+    id: 'mavic-3-enterprise',
+    category: 'Thermal & Survey Drone',
+    title: 'Aero Vision MAVIC 3 ENTERPRISE',
+    subtitle: 'Compact thermal camera drone for thermal inspection and surveying',
+    price: '$3,810',
+    specs: ['Thermal & Mechanical Shutter', '56x Hybrid Zoom', 'RTK Centimeter Module'],
+    rating: 4.9,
+    links: [
+      { text: 'Learn More', url: '#m3e-learn' },
+      { text: 'Buy Now', url: '#m3e-buy', primary: true }
+    ],
+    image: p8,
+    imageAlt: 'Aero Vision Mavic 3 Enterprise Thermal Drone'
+  },
+  {
+    id: 'osmo-pocket-3',
+    category: 'Handheld & Gimbal Camera',
+    title: 'Aero Vision OSMO POCKET 3',
+    subtitle: '1-inch CMOS pocket-sized 4K 120fps rotating touch display camera',
+    price: '$519',
+    specs: ['1" CMOS 4K/120fps', '2-Inch Rotatable Screen', '3-Axis Mechanical Stabilization'],
+    rating: 4.9,
+    isBestSeller: true,
+    links: [
+      { text: 'Learn More', url: '#osmo-3-learn' },
+      { text: 'Buy Now', url: '#osmo-3-buy', primary: true }
+    ],
+    image: p9,
+    imageAlt: 'Aero Vision Osmo Pocket 3 Camera'
+  },
+  {
+    id: 'dock-2',
+    category: 'Autonomous Drone Station',
+    title: 'Aero Vision DOCK 2',
+    subtitle: 'Automated remote drone deployment and high-speed fast charging dock',
+    price: '$9,999',
+    specs: ['Automated Deployment', 'IP55 Weatherproof', '10-km Operating Radius'],
+    rating: 4.9,
+    isNew: true,
+    links: [
+      { text: 'Learn More', url: '#dock-2-learn' },
+      { text: 'Buy Now', url: '#dock-2-buy', primary: true }
+    ],
+    image: p10,
+    imageAlt: 'Aero Vision Dock 2 Station'
   }
 ];
 

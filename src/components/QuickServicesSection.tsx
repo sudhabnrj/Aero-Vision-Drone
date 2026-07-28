@@ -42,7 +42,7 @@ export const QuickServicesSection: React.FC = () => {
   ];
 
   return (
-    <section className="bg-[#0070d2]/10 py-16 md:py-20 border-t border-slate-200/80">
+    <section className="bg-[#0070d2]/10 py-16 md:py-20 mb-0 border-t border-slate-200/80 ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <span className="text-xs font-bold text-[#0070d2] uppercase tracking-widest">Peace of Mind</span>

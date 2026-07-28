@@ -16,7 +16,7 @@ export const ShotOnSection: React.FC = () => {
   const current = SHOT_ON_SLIDES[activeSlide];
 
   return (
-    <section className="w-full py-10 my-8 overflow-hidden bg-slate-950 text-white">
+    <section className="w-full py-16 md:py-20 my-0 overflow-hidden bg-slate-950 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
@@ -68,9 +68,8 @@ export const ShotOnSection: React.FC = () => {
                 <button
                   key={slide.id}
                   onClick={() => setActiveSlide(idx)}
-                  className={`relative rounded-xl overflow-hidden h-12 w-16 border-2 transition-all cursor-pointer ${
-                    activeSlide === idx ? 'border-sky-400 scale-105 shadow-md' : 'border-white/30 opacity-60 hover:opacity-100'
-                  }`}
+                  className={`relative rounded-xl overflow-hidden h-12 w-16 border-2 transition-all cursor-pointer ${activeSlide === idx ? 'border-sky-400 scale-105 shadow-md' : 'border-white/30 opacity-60 hover:opacity-100'
+                    }`}
                 >
                   <img src={slide.image} alt={slide.title} className="w-full h-full object-cover" />
                 </button>

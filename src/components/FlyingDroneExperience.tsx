@@ -124,7 +124,7 @@ export const FlyingDroneExperience: React.FC = () => {
   };
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 my-8">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-20 pt-0 mb-0">
       {/* Title Header */}
       <div className="text-center max-w-3xl mx-auto space-y-3 mb-10">
         <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-sky-50 text-[#0070d2] text-xs font-bold uppercase tracking-wider border border-sky-200">
@@ -174,9 +174,8 @@ export const FlyingDroneExperience: React.FC = () => {
           <div className="flex items-center space-x-2 bg-black/60 backdrop-blur-md p-1.5 rounded-2xl border border-white/15">
             <button
               onClick={() => setAutoPlay(!autoPlay)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 inline-flex items-center space-x-1.5 cursor-pointer ${
-                autoPlay ? 'bg-sky-500 text-white' : 'bg-white/10 text-slate-300 hover:text-white'
-              }`}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 inline-flex items-center space-x-1.5 cursor-pointer ${autoPlay ? 'bg-sky-500 text-white' : 'bg-white/10 text-slate-300 hover:text-white'
+                }`}
             >
               {autoPlay ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
               <span>{autoPlay ? 'Autopilot Active' : 'Manual Nav'}</span>
@@ -213,11 +212,10 @@ export const FlyingDroneExperience: React.FC = () => {
                 className="absolute transform -translate-x-1/2 -translate-y-1/2 group transition-all duration-300 cursor-pointer z-10"
               >
                 <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all ${
-                    isActive
-                      ? 'border-sky-400 bg-sky-500/30 shadow-[0_0_20px_#38bdf8] scale-125'
-                      : 'border-white/30 bg-slate-900/60 hover:border-white hover:scale-110'
-                  }`}
+                  className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all ${isActive
+                    ? 'border-sky-400 bg-sky-500/30 shadow-[0_0_20px_#38bdf8] scale-125'
+                    : 'border-white/30 bg-slate-900/60 hover:border-white hover:scale-110'
+                    }`}
                 >
                   <Target
                     className={`w-4 h-4 ${isActive ? 'text-sky-300 animate-spin-slow' : 'text-slate-400'}`}
@@ -262,7 +260,7 @@ export const FlyingDroneExperience: React.FC = () => {
                 {/* Rotors Right Top */}
                 <ellipse cx="160" cy="30" rx="28" ry="8" stroke="currentColor" strokeWidth="2" className="animate-spin-slow opacity-80" />
                 <line x1="160" y1="30" x2="130" y2="50" stroke="currentColor" strokeWidth="3" />
-                
+
                 {/* Rotors Left Bottom */}
                 <ellipse cx="30" cy="85" rx="28" ry="8" stroke="currentColor" strokeWidth="2" className="animate-spin-slow opacity-80" />
                 <line x1="30" y1="85" x2="75" y2="65" stroke="currentColor" strokeWidth="3" />
@@ -352,9 +350,8 @@ export const FlyingDroneExperience: React.FC = () => {
             <button
               key={feat.id}
               onClick={() => handleSelectFeature(idx)}
-              className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                activeFeatureIdx === idx ? 'w-10 bg-sky-400' : 'w-2.5 bg-white/20 hover:bg-white/50'
-              }`}
+              className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${activeFeatureIdx === idx ? 'w-10 bg-sky-400' : 'w-2.5 bg-white/20 hover:bg-white/50'
+                }`}
               aria-label={`Go to feature ${feat.id}`}
             />
           ))}
